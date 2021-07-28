@@ -13,6 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    redirectTo: 'admin/dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'admin',
     children: [
       {
         path: 'dashboard',

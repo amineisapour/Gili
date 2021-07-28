@@ -9,7 +9,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTreeModule } from '@angular/material/tree';
-/*
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -34,7 +33,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
-*/
 
 
 @NgModule({
@@ -48,7 +46,6 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatButtonModule,
         MatBadgeModule,
         MatTreeModule,
-        /*
         MatAutocompleteModule,
         MatButtonToggleModule,
         MatCardModule,
@@ -73,7 +70,6 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTabsModule,
         MatTooltipModule,
         MatStepperModule
-        */
     ],
     exports: [
         CommonModule,
@@ -85,7 +81,6 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatButtonModule,
         MatBadgeModule,
         MatTreeModule,
-        /*
         MatAutocompleteModule,
         MatButtonToggleModule,
         MatCardModule,
@@ -110,7 +105,6 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTabsModule,
         MatTooltipModule,
         MatStepperModule
-        */
     ]
 })
 export class MaterialModule { }

@@ -1,0 +1,28 @@
+<mat-sidenav-container class="main-sidenav-container" autosize>
+
+  <mat-sidenav-content class="main-sidenav-content">
+    <div class="layout-main-container">
+      <div class="layout-content">
+        <div style="height: 80px;">
+          <h1 style="color: white;">Title</h1>
+          <p>
+            <a style="color: white;" href="#">Link</a>
+          </p>
+        </div>
+        <div class="layout-content-value">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav class="main-sidenav" #snav [opened]="mobileQuery.matches ? false : true"
+    [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <perfect-scrollbar>
+      <mat-nav-list>
+        <app-admin-main-nav-bar></app-admin-main-nav-bar>
+      </mat-nav-list>
+    </perfect-scrollbar>
+  </mat-sidenav>
+
+</mat-sidenav-container>

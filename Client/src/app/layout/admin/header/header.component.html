@@ -1,0 +1,76 @@
+<mat-toolbar color="primary" class="main-toolbar">
+    <mat-toolbar-row>
+        <button mat-flat-button color="primary" (click)="toggle()" (mouseenter)="mouseEnter()"
+            (mouseleave)="mouseLeave()">
+            <mat-icon>{{ direction }}</mat-icon>
+        </button>
+        <h1 class="main-app-name">Client App</h1>
+        <nav class="top-navigtaion">
+            <!-- <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+        <a mat-button routerLink="/" routerLinkActive="active">Page</a> -->
+            <button id="btnNotification" mat-flat-button color="primary" [matMenuTriggerFor]="notificationMenu">
+                <mat-icon matBadge="15" matBadgeColor="warn" matBadgeSize="medium" matBadgePosition="above after"
+                    [matBadgeHidden]="false">
+                    notifications
+                </mat-icon>
+            </button>
+            &nbsp;&nbsp;
+            <button id="btnProfile" mat-flat-button color="primary" [matMenuTriggerFor]="profileMenu">
+                <mat-icon>
+                    person
+                </mat-icon>
+            </button>
+            &nbsp;&nbsp;
+        </nav>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-menu #profileMenu="matMenu" yPosition="below" xPosition="before">
+    <div class="profile-main">
+        <a routerLink="admin/user/profile">
+            <button mat-menu-item>
+                <mat-icon>person</mat-icon>
+                <span>Profile</span>
+            </button>
+        </a>
+        <button mat-menu-item>
+            <mat-icon>message</mat-icon>
+            <span>Message</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
+    </div>
+</mat-menu>
+
+<mat-menu #notificationMenu="matMenu" yPosition="below" xPosition="before">
+    <div class="notification-main" (click)="$event.stopPropagation();">
+        <div class="noti-head">
+            <h6>Notifications</h6>
+            <div class="float-right">
+                <a href="javascript:">mark as read</a>
+                &nbsp;&nbsp;
+                <a href="javascript:">clear all</a>
+            </div>
+        </div>
+        <!-- <perfect-scrollbar style="max-height: 250px;" [config]="config"> -->
+        <div class="noti-content">
+            <div style="padding: 15px;">
+                <p>Hello Amin ...</p>
+                <p>Hello 1 ...</p>
+                <p>Hello 2 ...</p>
+                <p>Hello 3 ...</p>
+                <p>Hello 4 ...</p>
+                <p>Hello 5 ...</p>
+                <p>Hello 6 ...</p>
+                <p>Hello 7 ...</p>
+                <p>Hello 8 ...</p>
+                <p>Hello 9 ...</p>
+                <p>Hello 10 ...</p>
+            </div>
+        </div>
+        <!-- </perfect-scrollbar> -->
+        <div class="noti-footer"><a href="javascript:">show all</a></div>
+    </div>
+</mat-menu>

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>2d7bbf51-d1f3-451f-a7e7-955b74a89ec5</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentResults" Version="2.5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GiliX\GiliX.csproj" />
+    <ProjectReference Include="..\AuthenticationMicroservice.Core\AuthenticationMicroservice.Core.csproj" />
+    <ProjectReference Include="..\AuthenticationMicroservice.Domain\AuthenticationMicroservice.Domain.csproj" />
+    <ProjectReference Include="..\AuthenticationMicroservice.Persistence\AuthenticationMicroservice.Persistence.csproj" />
+    <ProjectReference Include="..\AuthenticationMicroservice.Resources\AuthenticationMicroservice.Resources.csproj" />
+  </ItemGroup>
+
+</Project>

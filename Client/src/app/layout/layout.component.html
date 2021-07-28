@@ -1,0 +1,5 @@
+<app-admin  *ngIf="isLogin; else other_content"></app-admin>
+<ng-template #other_content>
+    <!-- <app-auth></app-auth> -->
+    <router-outlet></router-outlet>
+</ng-template>

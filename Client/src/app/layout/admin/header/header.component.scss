@@ -1,0 +1,149 @@
+h1.main-app-name {
+    margin-left: 8px;
+}
+
+// .ifont{
+//     &-header{
+
+//     }
+//     &-title{
+
+//     }
+//     &-description{
+
+//     }
+// }
+
+.main {
+    // &-toolbar {
+    //     padding-top   : 15px;
+    //     padding-bottom: 5px;
+    // }
+
+    &-is-mobile {
+        .main-toolbar {
+            position: fixed;
+            /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+            z-index : 2;
+        }
+    }
+}
+
+// .main-toolbar {
+//     padding-top   : 15px;
+//     padding-bottom: 5px;
+// }
+
+// .main-is-mobile .main-toolbar {
+//     position: fixed;
+//     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+//     z-index : 2;
+// }
+
+.top-navigtaion {
+    margin-left  : auto;
+    padding-right: 15px;
+    padding-top  : 15px;
+}
+
+@media screen and (max-width: 600px) {
+    .top-navigtaion {
+        #btnNotification {
+            padding-right: 0 !important;
+            float        : right !important;
+        }
+
+        #btnProfile {
+            display: none;
+        }
+    }
+}
+
+
+.mat-menu-content {
+    padding: 0 !important;
+}
+
+.mat-menu-panel {
+    max-width: 100% !important;
+    min-width: 100% !important;
+}
+
+.notification-main {
+    width: 300px !important;
+
+    .noti-head {
+        border-bottom: 1px solid #0c1527;
+        background   : #0f192f;
+        padding      : 18px 20px 35px;
+
+        h6 {
+            color: #fff;
+
+            font: {
+                family: "Open Sans", "sans-serif";
+                size  : 14px;
+                weight: 600;
+            }
+
+            float : left;
+        }
+
+        .float-right {
+            float: right;
+
+            a {
+                color: #fff;
+            }
+        }
+    }
+
+    .noti-content {
+        min-height: 150px;
+        max-height: 200px;
+        overflow-y: visible;
+        overflow-x: hidden;
+        box-sizing: content-box;
+    }
+
+    .noti-content::-webkit-scrollbar {
+        position          : absolute;
+        -webkit-appearance: none;
+        width             : 7px;
+    }
+
+    .noti-content::-webkit-scrollbar-track {
+        box-shadow        : inset 0 0 0 #fff;
+        -moz-box-shadow   : inset 0 0 0 #fff;
+        -webkit-box-shadow: inset 0 0 0 #fff;
+
+        border-radius        : 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius   : 2px;
+    }
+
+    .noti-content::-webkit-scrollbar-thumb {
+        box-shadow        : inset 0 0 6px gray;
+        -moz-box-shadow   : inset 0 0 6px gray;
+        -webkit-box-shadow: inset 0 0 6px gray;
+
+        border-radius        : 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius   : 2px;
+    }
+
+    .noti-footer {
+        border-top: 1px solid #f1f1f1;
+        padding   : 15px 20px;
+        text-align: center;
+        background: #ecf0f5;
+    }
+}
+
+.profile-main {
+    min-width: 180px !important;
+
+    a {
+        text-decoration: none;
+    }
+}

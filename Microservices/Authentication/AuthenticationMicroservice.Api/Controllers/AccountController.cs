@@ -73,7 +73,6 @@ namespace AuthenticationMicroservice.Api.Controllers
                 if (!isPasswordValid)
                 {
                     result.WithError(errorMessage: Resources.Messages.Errors.LoginFailed);
-                    throw new BadHttpRequestException(Resources.Messages.Errors.LoginFailed);
                     return result.ConvertToDtxResult();
                 }
 

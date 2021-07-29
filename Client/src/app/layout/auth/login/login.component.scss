@@ -96,3 +96,12 @@ mat-card {
 .login-wrapper .mat-form-field-appearance-legacy .mat-form-field-infix {
     padding: 0.8375em 0;
 }
+
+mat-form-field .ng-valid[required],
+mat-form-field .ng-valid.required {
+    color:  #42A948;
+}
+
+mat-form-field .ng-invalid:not(form) {
+    color: #a94442;
+}

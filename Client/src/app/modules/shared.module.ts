@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumberToWordPipe } from '../pipes/number-to-word.pipe';
 import { MaterialModule } from './material.module';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -17,6 +18,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule
   ],
   exports: [
+    FormsModule,
+    ReactiveFormsModule,
     NumberToWordPipe,
     MaterialModule,
     PerfectScrollbarModule

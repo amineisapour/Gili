@@ -1,22 +1,47 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
 
     <mat-card class="box">
+
         <mat-card-header>
-            <mat-card-title><h1>Log in</h1></mat-card-title>
+            <mat-card-title>
+                <h1>Log in</h1>
+            </mat-card-title>
         </mat-card-header>
 
-        <form class="example-form">
+        <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" class="example-form">
             <mat-card-content>
-                <mat-form-field class="example-full-width">
-                    <input matInput type="email" placeholder="Username">
-                </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <input matInput type="password" placeholder="Password">
+                    <mat-label>Enter your email</mat-label>
+                    <input matInput formControlName="email" type="email" autocomplete="off" required email>
+                    <mat-error *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
+                        {{getErrorMessage('email')}}
+                    </mat-error>
                 </mat-form-field>
+
+                <mat-form-field appearance="standard" class="example-full-width">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput formControlName="password" autocomplete="off" [type]="hide ? 'password' : 'text'"
+                        required>
+                    <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-hint>
+                        At least 8 characters long including uppercase, lowercase, numeric, and special character.
+                    </mat-hint>
+
+                    <mat-error *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                        {{getErrorMessage('password')}}
+                    </mat-error>
+                </mat-form-field>
+
             </mat-card-content>
-            <!-- <button mat-stroked-button color="accent" class="btn-block">Log in</button> -->
-            <button mat-raised-button color="accent" class="btn-block">Log in</button>
+
+            <br>
+            <button mat-raised-button color="accent" type="submit" class="btn-block"
+                [disabled]="!loginForm.valid">Login</button>
+
         </form>
     </mat-card>
 

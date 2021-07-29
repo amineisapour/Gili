@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  public isLogin: boolean = true;
+  public isLogin: boolean = false;
   
   constructor() { }
 

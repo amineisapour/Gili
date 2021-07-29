@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using AuthenticationMicroservice.Core.Attributes;
-using AuthenticationMicroservice.Core.Exceptions;
 using AuthenticationMicroservice.Domain.Enums;
 using AuthenticationMicroservice.Domain.Models;
 using AuthenticationMicroservice.Domain.ViewModels;
-using Castle.Components.DictionaryAdapter;
 using GiliX.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AuthenticationMicroservice.Api.Controllers
 {
@@ -91,13 +86,8 @@ namespace AuthenticationMicroservice.Api.Controllers
 
                 await UnitOfWork.SaveAsync();
 
-                AuthenticateResponse authenticateResponse = new Domain.ViewModels.AuthenticateResponse
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Token = jwtToken,
-                    RefreshToken = refreshToken.Token
-                };
+                var userInfo = await UnitOfWork.UserInformations.GetUserInfoByUserIdAsync(user.Id);
+                var authenticateResponse = new AuthenticateResponse(user, userInfo, jwtToken, refreshToken.Token);
 
                 result.WithSuccess(successMessage: Resources.Messages.Successes.SuccessLogin);
                 result.WithValue(value: authenticateResponse);
@@ -184,13 +174,8 @@ namespace AuthenticationMicroservice.Api.Controllers
 
                 var jwtToken = _accountService.GenerateJwtToken(user);
 
-                AuthenticateResponse authenticateResponse = new Domain.ViewModels.AuthenticateResponse
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Token = jwtToken,
-                    RefreshToken = newRefreshToken.Token
-                };
+                var userInfo = await UnitOfWork.UserInformations.GetUserInfoByUserIdAsync(user.Id);
+                var authenticateResponse = new AuthenticateResponse(user, userInfo, jwtToken, newRefreshToken.Token);
 
                 result.WithSuccess("Ok");
                 result.WithValue(value: authenticateResponse);
@@ -326,13 +311,7 @@ namespace AuthenticationMicroservice.Api.Controllers
                 await UnitOfWork.Users.UpdateAsync(newUser);
                 await UnitOfWork.SaveAsync();
 
-                AuthenticateResponse authenticateResponse = new Domain.ViewModels.AuthenticateResponse
-                {
-                    Id = newUser.Id,
-                    Username = newUser.Username,
-                    Token = jwtToken,
-                    RefreshToken = refreshToken.Token
-                };
+                var authenticateResponse = new AuthenticateResponse(newUser, newUserInfo, jwtToken, refreshToken.Token);
 
                 result.WithSuccess(successMessage: string.Format(Resources.Messages.Successes.SuccessInsert, "User"));
                 result.WithValue(value: authenticateResponse);
@@ -352,21 +331,21 @@ namespace AuthenticationMicroservice.Api.Controllers
 
         [PermissionAuthorize(Core.Config.PermissionsConfig.Account.CanRead)]
         [HttpGet("get-all-user")]
-        [ProducesResponseType(type: typeof(Result<IList<Domain.ViewModels.UserListViewModel>>), statusCode: StatusCodes.Status200OK)]
+        [ProducesResponseType(type: typeof(Result<IList<UserListViewModel>>), statusCode: StatusCodes.Status200OK)]
         [ProducesResponseType(type: typeof(Result), statusCode: StatusCodes.Status400BadRequest)]
-        public async Task<Result<IList<Domain.ViewModels.UserListViewModel>>> GetAllUser()
+        public async Task<Result<IList<UserListViewModel>>> GetAllUser()
         {
-            var result = new FluentResults.Result<IList<Domain.ViewModels.UserListViewModel>>();
+            var result = new FluentResults.Result<IList<UserListViewModel>>();
             try
             {
                 var userList = await QueryUnitOfWork.Users.GetAllAsync();
-                List<Domain.ViewModels.UserListViewModel> returnList =
-                    new List<Domain.ViewModels.UserListViewModel>();
+                var returnList =
+                    new List<UserListViewModel>();
                 foreach (var user in userList)
                 {
                     var userInfo =
                         await QueryUnitOfWork.UserInformations.GetUserInfoByUserIdAsync(user.Id);
-                    returnList.Add(new Domain.ViewModels.UserListViewModel()
+                    returnList.Add(new UserListViewModel()
                     {
                         RegisterDateTime = user.RegisterDateTime,
                         Username = user.Username,
@@ -391,11 +370,11 @@ namespace AuthenticationMicroservice.Api.Controllers
 
         [PermissionAuthorize(Core.Config.PermissionsConfig.Account.CanRead)]
         [HttpGet("{id}/refresh-token")]
-        [ProducesResponseType(type: typeof(Result<IList<Domain.ViewModels.UserListViewModel>>), statusCode: StatusCodes.Status200OK)]
+        [ProducesResponseType(type: typeof(Result<IList<UserListViewModel>>), statusCode: StatusCodes.Status200OK)]
         [ProducesResponseType(type: typeof(Result), statusCode: StatusCodes.Status400BadRequest)]
-        public async Task<Result<IList<Domain.Models.RefreshToken>>> GetRefreshTokens(Guid id)
+        public async Task<Result<IList<RefreshToken>>> GetRefreshTokens(Guid id)
         {
-            var result = new FluentResults.Result<IList<Domain.Models.RefreshToken>>();
+            var result = new FluentResults.Result<IList<RefreshToken>>();
             try
             {
                 var user =
@@ -413,11 +392,11 @@ namespace AuthenticationMicroservice.Api.Controllers
 
         [PermissionAuthorize(Core.Config.PermissionsConfig.Account.CanRead)]
         [HttpGet("get-user/{id}")]
-        [ProducesResponseType(type: typeof(Result<Domain.ViewModels.UserListViewModel>), statusCode: StatusCodes.Status200OK)]
+        [ProducesResponseType(type: typeof(Result<UserListViewModel>), statusCode: StatusCodes.Status200OK)]
         [ProducesResponseType(type: typeof(Result), statusCode: StatusCodes.Status400BadRequest)]
-        public async Task<Result<Domain.ViewModels.UserListViewModel>> GetById(Guid id)
+        public async Task<Result<UserListViewModel>> GetById(Guid id)
         {
-            var result = new FluentResults.Result<Domain.ViewModels.UserListViewModel>();
+            var result = new FluentResults.Result<UserListViewModel>();
             try
             {
                 var user =
@@ -425,7 +404,7 @@ namespace AuthenticationMicroservice.Api.Controllers
                 var userInfo =
                     await QueryUnitOfWork.UserInformations.GetUserInfoByUserIdAsync(user.Id);
 
-                var userListViewModel = new Domain.ViewModels.UserListViewModel()
+                var userListViewModel = new UserListViewModel()
                 {
                     RegisterDateTime = user.RegisterDateTime,
                     Username = user.Username,
@@ -464,6 +443,7 @@ namespace AuthenticationMicroservice.Api.Controllers
             return await UnitOfWork.Users.GetByUsernameAsync(username.ToLower());
         }
 
+        /*
         private void SetTokenCookie(string token)
         {
             // append cookie with refresh token to the http response
@@ -474,6 +454,7 @@ namespace AuthenticationMicroservice.Api.Controllers
             };
             Response.Cookies.Append("refreshToken", token, cookieOptions);
         }
+        */
 
         private string IpAddress()
         {

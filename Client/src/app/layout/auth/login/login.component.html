@@ -13,9 +13,9 @@
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Enter your email</mat-label>
-                    <input matInput formControlName="email" type="email" autocomplete="off" required email>
-                    <mat-error *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
-                        {{getErrorMessage('email')}}
+                    <input matInput formControlName="username" type="username" autocomplete="off" required email>
+                    <mat-error *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
+                        {{getErrorMessage('username')}}
                     </mat-error>
                 </mat-form-field>
 

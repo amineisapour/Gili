@@ -14,6 +14,7 @@ using Castle.Components.DictionaryAdapter;
 using GiliX.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AuthenticationMicroservice.Api.Controllers
 {
@@ -47,6 +48,14 @@ namespace AuthenticationMicroservice.Api.Controllers
             var result = new FluentResults.Result<AuthenticateResponse>();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
+                    {
+                        result.WithError(error.ErrorMessage);
+                    }
+                    return result.ConvertToDtxResult();
+                }
                 var user = await GetUserAsync(loginUser.Username);
                 if (user == null)
                 {
@@ -64,6 +73,7 @@ namespace AuthenticationMicroservice.Api.Controllers
                 if (!isPasswordValid)
                 {
                     result.WithError(errorMessage: Resources.Messages.Errors.LoginFailed);
+                    throw new BadHttpRequestException(Resources.Messages.Errors.LoginFailed);
                     return result.ConvertToDtxResult();
                 }
 
@@ -115,6 +125,14 @@ namespace AuthenticationMicroservice.Api.Controllers
             var result = new FluentResults.Result<AuthenticateResponse>();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
+                    {
+                        result.WithError(error.ErrorMessage);
+                    }
+                    return result.ConvertToDtxResult();
+                }
                 //Request.Headers["dd"].ToString();
                 //var token = Request.Cookies["refreshToken"];
                 var token = tokenElemnt.RefreshToken ?? Request.Cookies["refreshToken"];
@@ -200,6 +218,14 @@ namespace AuthenticationMicroservice.Api.Controllers
             var result = new FluentResults.Result();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
+                    {
+                        result.WithError(error.ErrorMessage);
+                    }
+                    return result.ConvertToDtxResult();
+                }
                 // accept refresh token in request body or cookie
                 var token = model.Token ?? Request.Cookies["refreshToken"];
                 if (string.IsNullOrEmpty(token))
@@ -252,6 +278,14 @@ namespace AuthenticationMicroservice.Api.Controllers
             var result = new FluentResults.Result<AuthenticateResponse>();
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
+                    {
+                        result.WithError(error.ErrorMessage);
+                    }
+                    return result.ConvertToDtxResult();
+                }
                 var getUser = await GetUserAsync(registerUser.Username);
                 if (getUser != null)
                 {

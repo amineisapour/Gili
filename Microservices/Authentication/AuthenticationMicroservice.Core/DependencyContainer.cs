@@ -1,6 +1,8 @@
 ﻿using AuthenticationMicroservice.Core.Extentions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +17,17 @@ namespace AuthenticationMicroservice.Core
 
         public static void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressConsumesConstraintForFormFileParameters = true;
+                    options.SuppressInferBindingSourcesForParameters = true;
+                    options.SuppressModelStateInvalidFilter = true;
+                    options.SuppressMapClientErrors = true;
+                    options.ClientErrorMapping[StatusCodes.Status404NotFound].Link =
+                        "https://httpstatuses.com/404";
+                });
+
             services.AddApplicationServices(configuration);
 
             services.AddDbServices(configuration);

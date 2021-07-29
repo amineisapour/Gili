@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using AuthenticationMicroservice.Core.Interfaces;
 using GiliX.Common;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -30,6 +31,7 @@ namespace AuthenticationMicroservice.Core.Middlewares
                 //}
 
                 var next = Next(context);
+
                 switch (context.Response.StatusCode)
                 {
                     case (int)HttpStatusCode.NotFound:
@@ -42,6 +44,8 @@ namespace AuthenticationMicroservice.Core.Middlewares
                         throw new TimeoutException();
                     case (int)HttpStatusCode.UnsupportedMediaType:
                         throw new UnsupportedContentTypeException("model binder for the body of the request is unable to understand the request content-type header!");
+                    case (int)HttpStatusCode.BadRequest:
+                        throw new BadHttpRequestException("Bad Request");
                 }
                 await next;
             }
@@ -95,6 +99,9 @@ namespace AuthenticationMicroservice.Core.Middlewares
                     break;
                 case UnsupportedContentTypeException:
                     result.WithError($"Status Code: {(int)HttpStatusCode.UnsupportedMediaType} ({nameof(HttpStatusCode.UnsupportedMediaType)})");
+                    break;
+                case BadHttpRequestException:
+                    result.WithError($"Status Code: {(int)HttpStatusCode.BadRequest} ({nameof(HttpStatusCode.BadRequest)})");
                     break;
                 default:
                     result.WithError($"Status Code: {(int)HttpStatusCode.InternalServerError} ({nameof(HttpStatusCode.InternalServerError)})");

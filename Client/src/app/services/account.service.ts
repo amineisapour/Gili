@@ -14,6 +14,8 @@ export class AccountService {
     private httpOptions;
     private baseAuthenticationUrl;
 
+    isAuthenticat: boolean = localStorage.getItem('token') ? true : false;
+
     constructor(private http: HttpClient,
         private settingsService: SettingsService) {
         this.httpOptions = this.settingsService.httpOptions;

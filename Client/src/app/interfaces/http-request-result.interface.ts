@@ -3,5 +3,5 @@ export interface HttpRequestResult<T> {
     isSuccess: boolean;
     errors: string[];
     successes: string[];
-    value?: any;
+    value?: T;
 }

@@ -8,8 +8,8 @@ import { LocalStorageData } from "src/app/models/local-storage-data.model";
 export class LocalStorageService {
     private _localStorage: Storage;
 
-    private _myData$ = new BehaviorSubject<LocalStorageData<any> | null>(null);
-    myData$ = this._myData$.asObservable();
+    // private _myData$ = new BehaviorSubject<LocalStorageData<any> | null>(null);
+    // myData$ = this._myData$.asObservable();
 
     constructor(private localStorageRefService: LocalStorageReference) {
         this._localStorage = localStorageRefService.localStorage;
@@ -18,22 +18,23 @@ export class LocalStorageService {
     setInfo(data: LocalStorageData<any>): void {
         const jsonData = JSON.stringify(data.value);
         this._localStorage.setItem(data.key, jsonData);
-        this._myData$.next(data);
+        //this._myData$.next(data);
     }
 
-    loadInfo(key: string): void {
+    loadInfo(key: string): any {
         //const data = JSON.parse(this._localStorage.getItem(key) || '{}');
         const data = JSON.parse(this._localStorage.getItem(key)!);
-        this._myData$.next(data);
+        return data;
+        //this._myData$.next(data);
     }
 
     clearInfo(key: string) {
         this._localStorage.removeItem(key);
-        this._myData$.next(null);
+        //this._myData$.next(null);
     }
 
     clearAllLocalStorage(): void {
         this._localStorage.clear();
-        this._myData$.next(null);
+        //this._myData$.next(null);
     }
 }

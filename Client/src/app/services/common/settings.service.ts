@@ -15,8 +15,10 @@ export class SettingsService {
 
     public httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type': 'application/'
+            'Content-Type': 'application/json'
         })
     };
 
 }
+
+//'Content-Type': 'application/'

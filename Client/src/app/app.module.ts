@@ -16,7 +16,7 @@ import { MainComponent } from './layout/admin/main/main.component';
 import { NavBarComponent } from './layout/admin/main/nav-bar/nav-bar.component';
 import { LoginComponent } from './layout/auth/login/login.component';
 import { RegisterComponent } from './layout/auth/register/register.component';
-
+import { SnackbarComponent } from './components/common/snackbar/snackbar.component';
 
 //? Services and Providers
 import { ErrorService } from './services/common/error.service';
@@ -32,7 +32,8 @@ import { ErrorService } from './services/common/error.service';
     NavBarComponent,
     AdminComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,8 @@ import { ErrorService } from './services/common/error.service';
     SharedModule
   ],
   providers: [
-    { provide: ErrorHandler, useClass: ErrorService }
+    { provide: ErrorHandler, useClass: ErrorService },
+    SnackbarComponent
   ],
   bootstrap: [AppComponent]
 })

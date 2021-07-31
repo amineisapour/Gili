@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUser } from 'src/app/models/current-user.model';
+import { LocalStorageService } from 'src/app/services/common/local-storage.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  public currentUser: CurrentUser;
 
-  ngOnInit(): void {
+  constructor(private localStorageService: LocalStorageService) {
+    this.currentUser = this.localStorageService.loadInfo('current-user') as CurrentUser;
   }
+
+  ngOnInit(): void { }
 
 }

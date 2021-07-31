@@ -1,8 +1,8 @@
 export interface AuthenticateData {
-    Id: string;
-    Username: string;
-    Gender: string;
-    FullName: string;
-    Token: string;
-    RefreshToken: string;
+    id: string;
+    username: string;
+    gender: string;
+    fullName: string;
+    token: string;
+    refreshToken: string;
 }

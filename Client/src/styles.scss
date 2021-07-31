@@ -4,11 +4,33 @@
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-  margin: 0;
+  margin       : 0;
   //font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: #4680ff !important;
+  background   : #4680ff !important;
+}
+
+.alert-error {
+  padding         : 20px;
+  background-color: pink !important;
+  color           : red !important;
+  white-space: pre-line;
+}
+
+.alert-success {
+  padding         : 20px;
+  background-color: lightgreen;
+  color           : green !important;
+  white-space: pre-line;
+}
+
+
+.alert-warning {
+  padding         : 20px;
+  background-color: lightyellow;
+  color           : yellow !important;
+  white-space: pre-line;
 }

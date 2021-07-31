@@ -34,7 +34,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -69,7 +68,7 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTableModule,
         MatTabsModule,
         MatTooltipModule,
-        MatStepperModule
+        MatStepperModule,
     ],
     exports: [
         CommonModule,

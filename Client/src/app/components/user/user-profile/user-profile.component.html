@@ -1,5 +1,7 @@
 <h1>user-profile works!</h1>
-<p style="height: 550px;">sdsd</p>
+<p style="height: 550px;">
+    {{ currentUser.gender | getFullname: currentUser.fullName}}
+</p>
 <div style="bottom:0;">
     sss
     sds

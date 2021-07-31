@@ -48,6 +48,13 @@ namespace Api.Gateway
 
             app.UseRouting();
 
+            // global cors policy
+            app.UseCors(x => x
+                .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseExceptionHandlingMiddleware();
 
             app.UseAuthentication();

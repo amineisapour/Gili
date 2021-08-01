@@ -27,8 +27,24 @@ export class AccountService {
     }
 
     public login(model: any): Observable<HttpRequestResult<AuthenticateData>> {
-        let requestUrl: string = this.baseAuthenticationUrl + 'auth/login';
-        let requestData = { "username": model.username, "password": model.password };
+        const requestUrl: string = this.baseAuthenticationUrl + 'auth/login';
+        const requestData = { "username": model.username, "password": model.password };
+
+        return this.http.post<HttpRequestResult<AuthenticateData>>(requestUrl, requestData, this.httpOptions)
+            .pipe(
+                map(result => {
+                    return result;
+                }),
+                catchError(e => {
+                    return throwError(e)
+                })
+            );
+    }
+
+    public refresh(): Observable<HttpRequestResult<AuthenticateData>> {
+        const requestUrl: string = this.baseAuthenticationUrl + 'auth/refresh-token';
+        const refreshToken: string = this.getRefreshToken();
+        const requestData = { "refreshToken": refreshToken };
 
         return this.http.post<HttpRequestResult<AuthenticateData>>(requestUrl, requestData, this.httpOptions)
             .pipe(

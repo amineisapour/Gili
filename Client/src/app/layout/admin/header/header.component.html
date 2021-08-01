@@ -26,6 +26,9 @@
 </mat-toolbar>
 
 <mat-menu #profileMenu="matMenu" yPosition="below" xPosition="before">
+    <div class="profile-head">
+        <h6>Welcome {{ currentUser.fullName | getFullname: currentUser.gender}}</h6>
+    </div>
     <div class="profile-main">
         <a routerLink="admin/user/profile">
             <button mat-menu-item>
@@ -37,7 +40,7 @@
             <mat-icon>message</mat-icon>
             <span>Message</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()" >
             <mat-icon>logout</mat-icon>
             <span>Logout</span>
         </button>

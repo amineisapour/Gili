@@ -69,6 +69,24 @@ h1.main-app-name {
     min-width: 100% !important;
 }
 
+.profile-head {
+    border-bottom: 1px solid #0c1527;
+    background   : #0f192f;
+    padding      : 18px 20px 35px;
+
+    h6 {
+        color: #fff;
+
+        font: {
+            family: "Open Sans", "sans-serif";
+            size  : 12px;
+            weight: 600;
+        }
+
+        float : left;
+    }
+}
+
 .notification-main {
     width: 300px !important;
 

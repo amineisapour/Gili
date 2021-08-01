@@ -17,9 +17,11 @@ import { NavBarComponent } from './layout/admin/main/nav-bar/nav-bar.component';
 import { LoginComponent } from './layout/auth/login/login.component';
 import { RegisterComponent } from './layout/auth/register/register.component';
 import { SnackbarComponent } from './components/common/snackbar/snackbar.component';
+import { DialogBoxComponent } from './components/common/dialog-box/dialog-box.component';
 
 //? Services and Providers
 import { ErrorService } from './services/common/error.service';
+import { DialogBoxService } from './services/common/dialog-box.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { ErrorService } from './services/common/error.service';
     AdminComponent,
     LoginComponent,
     RegisterComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -43,8 +46,14 @@ import { ErrorService } from './services/common/error.service';
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorService },
-    SnackbarComponent
+    SnackbarComponent,
+    DialogBoxService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ],
+  entryComponents: [
+    DialogBoxComponent
+  ],
 })
 export class AppModule { }

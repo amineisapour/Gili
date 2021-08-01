@@ -6,9 +6,9 @@ import { Gender } from '../models/enums/enums';
 })
 export class GetFullnamePipe implements PipeTransform {
 
-  transform(gender: string, fullname: string): string {
+  transform(fullname: string, gender: string): string {
     let result: string = '';
-    
+
     switch (gender) {
       case Gender.Woman.toString():
         result = 'Ms. ';

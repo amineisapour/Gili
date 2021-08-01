@@ -1,8 +1,7 @@
-<h1>user-list</h1>
-<br>
+<h1>User List</h1>
 <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Amin" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -61,9 +60,10 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            <td class="mat-cell" colspan="8">No data matching the filter "{{input.value}}"</td>
         </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 8, 10 ,100]" aria-label="Select page of users"></mat-paginator>
 </div>
+<br>

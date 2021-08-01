@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageType } from 'src/app/models/enums/enums';
 import { HttpRequestResult } from 'src/app/models/http-request-result.model';
@@ -14,23 +14,29 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements AfterViewInit {
+export class UserListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'username', 'gender', 'firstName', 'lastName', 'birthdate', 'registerDateTime', 'isActive'];
   dataSource: MatTableDataSource<User>;
 
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatPaginator, { static: false }) set paginator(value: MatPaginator) {
-    this.dataSource.paginator = value;
-  }
-  //@ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatSort, { static: false }) set sort(value: MatSort) {
-    this.dataSource.sort = value;
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator | any;
+  // @ViewChild(MatPaginator, { static: false }) set paginator(value: MatPaginator) {
+  //   this.dataSource.paginator = value;
+  // }
 
-  constructor(private accountService: AccountService, public snackbar: SnackbarComponent) {
+  @ViewChild(MatSort) sort: MatSort | any;
+  // @ViewChild(MatSort, { static: false }) set sort(value: MatSort) {
+  //   this.dataSource.sort = value;
+  // }
+
+  constructor(
+    private accountService: AccountService,
+    public snackbar: SnackbarComponent
+  ) {
     this.dataSource = new MatTableDataSource<User>();
+  }
 
+  ngOnInit() {
     this.accountService.getAllUser().subscribe(
       (result: HttpRequestResult<User[]>) => {
         if (result.isFailed) {
@@ -41,6 +47,8 @@ export class UserListComponent implements AfterViewInit {
             let listUser = result.value;
             //console.table(listUser);
             this.dataSource = new MatTableDataSource(listUser);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
           } else {
             //console.log('problem!');
             this.snackbar.openSnackBar('problem!', MessageType.Error);
@@ -51,12 +59,6 @@ export class UserListComponent implements AfterViewInit {
         return this.handleError(error)
       }
     );
-
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {

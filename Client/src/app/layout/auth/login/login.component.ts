@@ -74,12 +74,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(data: any): void {
-    //this.data = data;
-    //alert(this.data.username + '\r\n' + this.data.password);
     this.accountService.login(data).subscribe(
       (result: HttpRequestResult<AuthenticateData>) => {
-        //console.log(4);
-        console.log(result);
+        //console.log(result);
         if (result.isFailed) {
           // result.errors.forEach(function (item, index) {
           //   console.log(item);
@@ -97,7 +94,6 @@ export class LoginComponent implements OnInit {
             this.localStorageService.setInfo(new LocalStorageData<string>("token", result.value.token));
             this.localStorageService.setInfo(new LocalStorageData<string>("refresh-token", result.value.refreshToken));
 
-            //console.log('this.returnUrl: ' + this.returnUrl);
             window.location.href = this.returnUrl;
           } else {
             //console.log('problem!');

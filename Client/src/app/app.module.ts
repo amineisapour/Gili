@@ -20,8 +20,10 @@ import { SnackbarComponent } from './components/common/snackbar/snackbar.compone
 import { DialogBoxComponent } from './components/common/dialog-box/dialog-box.component';
 
 //? Services and Providers
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorService } from './services/common/error.service';
 import { DialogBoxService } from './services/common/dialog-box.service';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,7 @@ import { DialogBoxService } from './services/common/dialog-box.service';
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorService },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     SnackbarComponent,
     DialogBoxService
   ],

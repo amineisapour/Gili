@@ -36,14 +36,13 @@ export class DialogBoxService {
         if (additionalDialogConfigData != null) {
             config = Object.assign(dialogConfig, additionalDialogConfigData);
         }
-        
+
         if (this.dialogRef) {
             this.dialogRef.close();
         }
         this.dialogRef = this.dialog.open(DialogBoxComponent, config);
 
-        this.dialogRef.afterClosed().subscribe((result: MatDialogRef<DialogBoxComponent>) => {
-        });
+        this.dialogRef.afterClosed().subscribe((result: MatDialogRef<DialogBoxComponent>) => { });
 
         return this.dialogRef;
     }

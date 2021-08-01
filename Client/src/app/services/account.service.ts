@@ -7,6 +7,7 @@ import { HttpRequestResult } from '../interfaces/http-request-result.interface';
 import { AuthenticateData } from '../interfaces/authenticate-data.interface';
 import { LocalStorageService } from './common/local-storage.service';
 import { CurrentUser } from '../interfaces/current-user.interface';
+import { User } from '../models/users/user.model';
 
 
 @Injectable({
@@ -47,6 +48,20 @@ export class AccountService {
         const requestData = { "refreshToken": refreshToken };
 
         return this.http.post<HttpRequestResult<AuthenticateData>>(requestUrl, requestData, this.httpOptions)
+            .pipe(
+                map(result => {
+                    return result;
+                }),
+                catchError(e => {
+                    return throwError(e)
+                })
+            );
+    }
+
+    public getAllUser(): Observable<HttpRequestResult<User[]>> {
+        const requestUrl: string = this.baseAuthenticationUrl + 'auth/all-user';
+
+        return this.http.get<HttpRequestResult<User[]>>(requestUrl, this.httpOptions)
             .pipe(
                 map(result => {
                     return result;

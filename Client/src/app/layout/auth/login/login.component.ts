@@ -102,34 +102,38 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        try {
-          let httpRequestResult = error.error as HttpRequestResult<any>;
-          if (httpRequestResult != undefined && httpRequestResult != null) {
-            if (httpRequestResult.isFailed) {
-              // httpRequestResult.errors.forEach(function (item, index) {
-              //   console.log(item);
-              // });
-              this.snackbar.openSnackBar(httpRequestResult.errors, MessageType.Error);
-            } else if (httpRequestResult.isSuccess) {
-              // httpRequestResult.successes.forEach(function (item, index) {
-              //   console.log(item);
-              // });
-              this.snackbar.openSnackBar(httpRequestResult.successes, MessageType.Error);
-            } else {
-              //console.log(error.message);
-              this.snackbar.openSnackBar(error.message, MessageType.Error);
-            }
-          } else {
-            //console.log(error.message);
-            this.snackbar.openSnackBar(error.message, MessageType.Error);
-          }
-        }
-        catch (error) {
-          console.log(error);
-          this.snackbar.openSnackBar(error.message, MessageType.Error);
-        }
+        return this.handleError(error)
       }
     );
+  }
+
+  handleError(error: HttpErrorResponse): void {
+    try {
+      let httpRequestResult = error.error as HttpRequestResult<any>;
+      if (httpRequestResult != undefined && httpRequestResult != null) {
+        if (httpRequestResult.isFailed) {
+          httpRequestResult.errors.forEach(function (item, index) {
+            console.error(item);
+          });
+          this.snackbar.openSnackBar(httpRequestResult.errors, MessageType.Error);
+        } else if (httpRequestResult.isSuccess) {
+          httpRequestResult.successes.forEach(function (item, index) {
+            console.error(item);
+          });
+          this.snackbar.openSnackBar(httpRequestResult.successes, MessageType.Error);
+        } else {
+          console.error(error.message);
+          this.snackbar.openSnackBar(error.message, MessageType.Error);
+        }
+      } else {
+        console.error(error.message);
+        this.snackbar.openSnackBar(error.message, MessageType.Error);
+      }
+    }
+    catch (error) {
+      console.error(error);
+      this.snackbar.openSnackBar(error.message, MessageType.Error);
+    }
   }
 
   // showMessage(message: string, type: MessageType) {

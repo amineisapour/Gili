@@ -14,7 +14,7 @@ export class LayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isAuthenticat = this.accountService.isAuthenticat;
+    this.isAuthenticat = this.accountService.isAuthenticat();
   }
 
 }

@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.accountService.isAuthenticat) {
+    if (this.accountService.isAuthenticat()) {
       this.router.navigate(['/']);
       return;
     }

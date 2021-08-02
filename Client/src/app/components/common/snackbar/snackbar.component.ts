@@ -8,7 +8,7 @@ import {
 import { MessageType } from 'src/app/models/enums/enums';
 
 @Component({
-  selector: 'app-snackbar',
+  selector: 'app-common-snackbar',
   templateUrl: './snackbar.component.html',
   styleUrls: ['./snackbar.component.scss']
 })

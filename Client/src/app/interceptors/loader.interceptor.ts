@@ -10,9 +10,7 @@ import { Observable } from 'rxjs';
 import { LoaderService } from '../services/common/loader.service';
 import { catchError, finalize, map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
   constructor(private loaderService: LoaderService) { }
@@ -26,17 +24,27 @@ export class LoaderInterceptor implements HttpInterceptor {
     //     }
     //   )
     // );
+
     this.loaderService.setLoading(true, request.url);
-    return next.handle(request)
-      .pipe(catchError((err) => {
-        this.loaderService.setLoading(false, request.url);
-        return err;
-      }))
-      .pipe(map<HttpEvent<any> | unknown, any>((evt: HttpEvent<any> | unknown) => {
-        if (evt instanceof HttpResponse) {
+     return next.handle(request).pipe(
+      finalize(
+        () => {
           this.loaderService.setLoading(false, request.url);
         }
-        return evt;
-      }));
+      )
+    );
+
+    // return next.handle(request)
+    //   .pipe(catchError((err) => {
+    //     this.loaderService.setLoading(false, request.url);
+    //     return err;
+    //   }))
+    //   .pipe(map<HttpEvent<any> | any, any>((evt: HttpEvent<any> | any) => {
+    //     if (evt instanceof HttpResponse) {
+    //       this.loaderService.setLoading(false, request.url);
+    //     }
+    //     console.log(1);
+    //     return evt;
+    //   }));
   }
 }

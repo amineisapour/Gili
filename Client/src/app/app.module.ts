@@ -18,6 +18,7 @@ import { LoginComponent } from './layout/auth/login/login.component';
 import { RegisterComponent } from './layout/auth/register/register.component';
 import { SnackbarComponent } from './components/common/snackbar/snackbar.component';
 import { DialogBoxComponent } from './components/common/dialog-box/dialog-box.component';
+import { LoaderComponent } from './components/common/loader/loader.component';
 
 //? Services and Providers
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -39,7 +40,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     LoginComponent,
     RegisterComponent,
     SnackbarComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

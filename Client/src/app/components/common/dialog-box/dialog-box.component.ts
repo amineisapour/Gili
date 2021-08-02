@@ -6,7 +6,7 @@ import {
 import { DialogData } from 'src/app/interfaces/dialog/dialog-data.interface';
 
 @Component({
-  selector: 'app-dialog-box',
+  selector: 'app-common-dialog-box',
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.scss']
 })

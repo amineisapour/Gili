@@ -1,4 +1,4 @@
-<app-admin  *ngIf="isAuthenticat; else other_content"></app-admin>
+<app-admin *ngIf="isAuthenticat; else other_content"></app-admin>
 <ng-template #other_content>
     <!-- <app-auth></app-auth> -->
     <router-outlet></router-outlet>

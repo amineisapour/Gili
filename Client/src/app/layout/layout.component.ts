@@ -10,8 +10,7 @@ export class LayoutComponent implements OnInit {
 
   public isAuthenticat: boolean = false;
 
-  constructor(private accountService: AccountService) {
-  }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.isAuthenticat = this.accountService.isAuthenticat();

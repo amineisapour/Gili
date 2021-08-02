@@ -28,7 +28,9 @@ export class JwtInterceptor implements HttpInterceptor {
 
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req.clone({
-      setHeaders: { Authorization: 'Bearer ' + token }
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 
@@ -110,7 +112,14 @@ export class JwtInterceptor implements HttpInterceptor {
         filter(token => (token != null && token != '')),
         take(1),
         switchMap(token => {
-          return next.handle(req.clone({ setHeaders: { Authorization: 'Bearer ' + token } }));
+          return next.handle(
+            req.clone({
+              setHeaders:
+              {
+                Authorization: `Bearer ${token}`
+              }
+            })
+          );
         }));
     }
   }

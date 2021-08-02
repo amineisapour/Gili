@@ -24,6 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorService } from './services/common/error.service';
 import { DialogBoxService } from './services/common/dialog-box.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { LoaderInterceptor } from './interceptors/loader.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
   providers: [
     { provide: ErrorHandler, useClass: ErrorService },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     SnackbarComponent,
     DialogBoxService
   ],

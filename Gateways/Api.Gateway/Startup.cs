@@ -20,9 +20,23 @@ namespace Api.Gateway
         }
 
         public IConfiguration Configuration { get; }
+        private string AllowSpecificOrigins = "AllowSpecificOrigins"; // Angular Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: AllowSpecificOrigins, builder =>
+                {
+                    // Application Setting
+                    builder
+                        .WithOrigins("http://localhost:4200/")
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
             services.AddIdentityServices(Configuration);
 
             services.AddOcelot().AddCacheManager(settings => settings.WithDictionaryHandle());
@@ -46,7 +60,7 @@ namespace Api.Gateway
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseCors(AllowSpecificOrigins);
 
             // global cors policy
             app.UseCors(x => x
@@ -54,6 +68,8 @@ namespace Api.Gateway
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
+
+            app.UseRouting();
 
             app.UseExceptionHandlingMiddleware();
 

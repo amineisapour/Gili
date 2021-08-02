@@ -33,6 +33,8 @@ namespace Api.Gateway.Infrastructure.Middlewares
                         throw new TimeoutException();
                     case (int)HttpStatusCode.UnsupportedMediaType:
                         throw new UnsupportedContentTypeException("model binder for the body of the request is unable to understand the request content-type header!");
+                    case (int)HttpStatusCode.TooManyRequests:
+                        throw new TooManyModelErrorsException("API calls quota exceeded!");
                 }
                 await next;
             }
@@ -72,6 +74,9 @@ namespace Api.Gateway.Infrastructure.Middlewares
                     break;
                 case UnsupportedContentTypeException:
                     result.WithError($"Status Code: {(int)HttpStatusCode.UnsupportedMediaType} ({nameof(HttpStatusCode.UnsupportedMediaType)})");
+                    break;
+                case TooManyModelErrorsException:
+                    result.WithError($"Status Code: {(int)HttpStatusCode.TooManyRequests} ({nameof(HttpStatusCode.TooManyRequests)})");
                     break;
                 default:
                     result.WithError($"Status Code: {(int)HttpStatusCode.InternalServerError} ({nameof(HttpStatusCode.InternalServerError)})");

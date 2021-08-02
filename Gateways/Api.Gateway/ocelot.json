@@ -63,14 +63,7 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 1
-      },
-      "FileCacheOptions": { "TtlSeconds": 10 }
+      "FileCacheOptions": { "TtlSeconds": 30 }
     },
     {
       "DownstreamPathTemplate": "/api/account/get-user/{id}",
@@ -94,7 +87,7 @@
         "PeriodTimespan": 1,
         "Limit": 1
       },
-      "FileCacheOptions": { "TtlSeconds": 10 }
+      "FileCacheOptions": { "TtlSeconds": 30 }
     },
     {
       "DownstreamPathTemplate": "/api/account/test",

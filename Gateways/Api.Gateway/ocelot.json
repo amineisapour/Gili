@@ -63,7 +63,7 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
-      "FileCacheOptions": { "TtlSeconds": 30 }
+      "FileCacheOptions": { "TtlSeconds": 5 }
     },
     {
       "DownstreamPathTemplate": "/api/account/get-user/{id}",

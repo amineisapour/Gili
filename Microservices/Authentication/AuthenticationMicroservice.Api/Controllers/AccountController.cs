@@ -102,6 +102,7 @@ namespace AuthenticationMicroservice.Api.Controllers
                     result.WithError(ex.InnerException.Message);
                 }
             }
+            System.Threading.Thread.Sleep(3000);
             return result.ConvertToDtxResult();
         }
 
@@ -365,6 +366,7 @@ namespace AuthenticationMicroservice.Api.Controllers
             {
                 result.WithError(errorMessage: ex.Message);
             }
+            System.Threading.Thread.Sleep(3000);
             return result.ConvertToDtxResult();
         }
 

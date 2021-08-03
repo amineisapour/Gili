@@ -15,22 +15,26 @@ body {
 
 .alert-error {
   padding         : 20px;
-  background-color: pink !important;
-  color           : red !important;
-  white-space: pre-line;
+  background-color: rgb(185, 75, 53) !important;
+  color           : #fff !important;
+  white-space     : pre-line;
 }
 
 .alert-success {
   padding         : 20px;
-  background-color: lightgreen;
-  color           : green !important;
-  white-space: pre-line;
+  background-color: rgb(96, 147, 87) !important;
+  color           : #fff !important;
+  white-space     : pre-line;
 }
 
 
 .alert-warning {
   padding         : 20px;
-  background-color: lightyellow;
-  color           : yellow !important;
-  white-space: pre-line;
+  background-color: rgb(219, 216, 30) !important;
+  color           : #fff !important;
+  white-space     : pre-line;
+}
+
+.mat-button-wrapper {
+  color: #fff !important;
 }

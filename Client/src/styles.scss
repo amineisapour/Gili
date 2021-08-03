@@ -35,6 +35,10 @@ body {
   white-space     : pre-line;
 }
 
-.mat-button-wrapper {
-  color: #fff !important;
+.mat-simple-snackbar-action {
+  button {
+    .mat-button-wrapper {
+      color: #fff !important;
+    }
+  }
 }

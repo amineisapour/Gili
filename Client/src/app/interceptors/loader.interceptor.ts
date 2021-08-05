@@ -26,16 +26,28 @@ export class LoaderInterceptor implements HttpInterceptor {
     // );
 
     this.loaderService.setLoading(true, request.url);
-     return next.handle(request).pipe(
-      finalize(
-        () => {
-          this.loaderService.setLoading(false, request.url);
-        }
+    return next.handle(request)
+      .pipe(
+        finalize(
+          () => {
+            this.loaderService.setLoading(false, request.url);
+          }
+        )
       )
-    );
+      .pipe(
+        map<HttpEvent<any> | any, any>(
+          (evt: HttpEvent<any> | any) => {
+            if (evt instanceof HttpResponse) {
+              this.loaderService.setLoading(false, request.url);
+            }
+            return evt;
+          }
+        )
+      );
 
     // return next.handle(request)
-    //   .pipe(catchError((err) => {
+    //   .pipe(
+    //     catchError((err) => {
     //     this.loaderService.setLoading(false, request.url);
     //     return err;
     //   }))

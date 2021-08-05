@@ -16,7 +16,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'username', 'gender', 'firstName', 'lastName', 'birthdate', 'registerDateTime', 'isActive'];
+  displayedColumns: string[] = ['id', 'username', 'gender', 'birthdate', 'registerDateTime', 'isActive'];
   dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator | any;

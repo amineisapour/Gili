@@ -8,7 +8,8 @@ import {
   HttpProgressEvent,
   HttpResponse,
   HttpUserEvent,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpEvent
 } from '@angular/common/http';
 import { Observable, throwError as observableThrowError, BehaviorSubject } from 'rxjs';
 import { AccountService } from '../services/account.service';
@@ -17,14 +18,15 @@ import { HttpRequestResult } from '../models/http-request-result.model';
 import { AuthenticateData } from '../models/authenticate-data.model';
 import { LocalStorageService } from '../services/common/local-storage.service';
 import { LocalStorageData } from '../models/local-storage-data.model';
+import { LoaderService } from 'src/app/services/common/loader.service';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class HttpRequestInterceptor implements HttpInterceptor {
 
   isRefreshingToken: boolean = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector, private loaderService: LoaderService) { }
 
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req.clone({
@@ -35,25 +37,34 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
+    Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any> | HttpEvent<any>> {
 
     const accountService = this.injector.get(AccountService);
 
-    return next.handle(this.addToken(request, accountService.getToken())).pipe(
-      catchError(error => {
-        if (error instanceof HttpErrorResponse) {
-          switch ((<HttpErrorResponse>error).status) {
-            case 400:
-              return this.handle400Error(error);
-            case 401:
-              return this.handle401Error(request, next);
-            default:
-              return observableThrowError(error);
+    this.loaderService.setLoading(true, request.url);
+
+    return next.handle(this.addToken(request, accountService.getToken()))
+      .pipe(
+        catchError(error => {
+          if (error instanceof HttpErrorResponse) {
+            switch ((<HttpErrorResponse>error).status) {
+              case 400:
+                return this.handle400Error(error);
+              case 401:
+                return this.handle401Error(request, next);
+              default:
+                return observableThrowError(error);
+            }
+          } else {
+            return observableThrowError(error);
           }
-        } else {
-          return observableThrowError(error);
-        }
-      }));
+        }),
+        finalize(
+          () => {
+            this.loaderService.setLoading(false, request.url);
+          }
+        )
+      );
   }
 
   logoutUser() {

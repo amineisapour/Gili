@@ -24,8 +24,9 @@ import { LoaderComponent } from './components/common/loader/loader.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorService } from './services/common/error.service';
 import { DialogBoxService } from './services/common/dialog-box.service';
-import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { LoaderInterceptor } from './interceptors/loader.interceptor';
+//import { JwtInterceptor } from './interceptors/jwt.interceptor';
+//import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,8 +52,9 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorService },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     SnackbarComponent,
     DialogBoxService
   ],

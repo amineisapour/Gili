@@ -27,6 +27,7 @@
 
 <mat-menu #profileMenu="matMenu" yPosition="below" xPosition="before">
     <div class="profile-head">
+        <img class="img-radius" src="assets/images/user/{{ (currentUser.gender == 'Woman') ? 'avatar_female.png' : 'avatar_male.png' }}">
         <h6>Welcome {{ currentUser.fullName | getFullname: currentUser.gender}}</h6>
     </div>
     <div class="profile-main">

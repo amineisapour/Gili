@@ -1,6 +1,15 @@
+<div class="main-menu-header">
+    <img class="img-radius" src="assets/images/user/{{ (currentUser.gender == 'Woman') ? 'avatar_female.png' : 'avatar_male.png' }}">
+    <div class="user-details">
+        Welcome {{ currentUser.fullName | getFullname: currentUser.gender}}
+    </div>
+</div>
+<div class="tree-hr"></div>
+
 <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: menuItems }"></ng-container>
 
 <ng-template #recursiveListTmpl let-list="list">
+
     <ng-template ngFor let-item [ngForOf]="list" let-i="index" let-f="first" let-l="last" [ngForTrackBy]="trackByFn">
 
         <ng-template [ngIf]="item.children" [ngIfElse]="divAlone">
@@ -15,12 +24,12 @@
 
         <ng-template #divAlone>
             <div class="tree-nav__item">
-                <a class="tree-nav__item-title" routerLink="{{ item.path }}" 
-                    routerLinkActive="tree-nav__active-item"
+                <a class="tree-nav__item-title" routerLink="{{ item.path }}" routerLinkActive="tree-nav__active-item"
                     [routerLinkActiveOptions]="{exact: true}">
                     <i class="ion ion-cube"></i>&nbsp;&nbsp;{{ item.title }}</a>
             </div>
         </ng-template>
 
     </ng-template>
+
 </ng-template>

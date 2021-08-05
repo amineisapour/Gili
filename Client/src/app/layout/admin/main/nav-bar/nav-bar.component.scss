@@ -121,3 +121,20 @@ summary::-webkit-details-marker {
 .tree-nav__item-title::-webkit-details-marker {
     display: none;
 }
+
+.main-menu-header {
+    position: relative;
+    padding: 20px 3px 10px;
+    height: 100px;
+    text-align: center;
+
+    .user-details {
+        padding: 10px;
+        font-weight: 700;
+    }
+
+    .img-radius {
+        width: 60px;
+        border-radius: 50%;
+    }
+}

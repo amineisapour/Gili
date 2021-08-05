@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Models from 'src/app/models/menu-item.model';
 import * as Interfaces from 'src/app/interfaces/menu-item.interface';
+import { CurrentUser } from 'src/app/interfaces/current-user.interface';
+import { AccountService } from 'src/app/services/account.service';
 
 
 @Component({
@@ -10,11 +12,14 @@ import * as Interfaces from 'src/app/interfaces/menu-item.interface';
 })
 export class NavBarComponent implements OnInit {
 
+  public currentUser: CurrentUser;
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
 
   public menuItems: Interfaces.MenuItem[];
 
-  public constructor() {
+  public constructor(private accountService: AccountService) {
+    this.currentUser = this.accountService.getCurrentUser();
+    
     this.menuItems = [
       new Models.MenuItem(1, 'Dashboard', '', 'admin/dashboard', true),
       new Models.MenuItem(2, 'Tasks', '', '', true, [

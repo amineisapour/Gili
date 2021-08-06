@@ -40,9 +40,8 @@ export class ValidationService {
     }
 
     static nationalIdValidator(control: any) {
-        let strongRegex = new RegExp("^\d{10}$");
-        console.log(control.value);
-        if (control.value.match(/^[0-9]{10}$/g)) {
+        // /^[0-9]{10}$/g
+        if (control.value.match(/^(?:\d{10}|)$/g)) {
             return null;
         } else {
             return { invalidNationalId: true };

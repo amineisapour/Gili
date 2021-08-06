@@ -65,9 +65,9 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>BirthDate</mat-label>
                     <!-- <input matInput formControlName="birthdate" type="date" date required> -->
-                    <input matInput formControlName="birthdate" [matDatepicker]="picker">
+                    <input matInput formControlName="birthdate" [matDatepicker]="picker" (click)="picker.open()">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker  #picker></mat-datepicker>
                     <mat-error *ngIf="!registerForm.controls['birthdate'].valid && registerForm.controls['birthdate'].touched">
                         {{getErrorMessage('birthdate')}}
                     </mat-error>
@@ -76,10 +76,14 @@
             </mat-card-content>
 
             <br>
-            <button mat-raised-button color="accent" type="submit" class="btn-block"
+            <button mat-raised-button type="submit" class="btn-block"
                 [disabled]="!registerForm.valid">Submit</button>
 
         </form>
+
+        <p style="text-align: center; padding-top: 25px;">
+            <button mat-stroked-button color="primary" type="button" (click)="login()">Login</button>
+        </p>
     </mat-card>
 
 </div>

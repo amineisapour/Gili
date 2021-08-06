@@ -15,3 +15,8 @@ export enum DateTimeFormat {
     YyyyMmDdHhMmSs = 'YyyyMmDdHhMmSs',
     FullText = 'FullText'
 }
+
+export enum DateTimeSplitter {
+    Slash = '/',
+    Dash = '-'
+}

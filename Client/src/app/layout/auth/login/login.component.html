@@ -41,10 +41,14 @@
             </mat-card-content>
 
             <br>
-            <button mat-raised-button color="accent" type="submit" class="btn-block"
+            <button mat-raised-button type="submit" class="btn-block"
                 [disabled]="!loginForm.valid">Login</button>
 
         </form>
+
+        <p style="text-align: center; padding-top: 25px;">
+            <button mat-stroked-button color="primary" type="button" (click)="register()">Register</button>
+        </p>
     </mat-card>
 
 </div>

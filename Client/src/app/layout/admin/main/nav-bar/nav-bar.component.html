@@ -1,7 +1,8 @@
 <div class="main-menu-header">
-    <img class="img-radius" src="assets/images/user/{{ (currentUser.gender == 'Woman') ? 'avatar_female.png' : 'avatar_male.png' }}">
+    <img class="img-radius"
+        src="assets/images/user/{{ (currentUser.gender == 'Woman') ? 'avatar_female.png' : 'avatar_male.png' }}">
     <div class="user-details">
-        Welcome {{ currentUser.fullName | getFullname: currentUser.gender}}
+        Welcome {{ currentUser.fullName }}
     </div>
 </div>
 <div class="tree-hr"></div>

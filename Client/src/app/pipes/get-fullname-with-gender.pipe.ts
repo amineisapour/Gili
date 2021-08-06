@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Gender } from '../models/enums/enums';
 
 @Pipe({
-  name: 'getFullname'
+  name: 'getFullnameWithGender'
 })
-export class GetFullnamePipe implements PipeTransform {
+export class GetFullnameWithGenderPipe implements PipeTransform {
 
   transform(fullname: string, gender: string | number): string {
     let result: string = '';

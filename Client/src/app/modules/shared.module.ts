@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumberToWordPipe } from '../pipes/number-to-word.pipe';
-import { GetFullnamePipe } from '../pipes/get-fullname.pipe';
+import { GetFullnameWithGenderPipe } from '../pipes/get-fullname-with-gender.pipe';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -14,7 +14,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
   declarations: [
     NumberToWordPipe,
-    GetFullnamePipe
+    GetFullnameWithGenderPipe
   ],
   imports: [
     CommonModule,
@@ -25,7 +25,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     NumberToWordPipe,
-    GetFullnamePipe,
+    GetFullnameWithGenderPipe,
     MaterialModule,
     PerfectScrollbarModule,
     HttpClientModule

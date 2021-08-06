@@ -33,6 +33,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
     imports: [
@@ -69,6 +70,7 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTabsModule,
         MatTooltipModule,
         MatStepperModule,
+        MatNativeDateModule
     ],
     exports: [
         CommonModule,
@@ -103,7 +105,8 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatTableModule,
         MatTabsModule,
         MatTooltipModule,
-        MatStepperModule
+        MatStepperModule,
+        MatNativeDateModule
     ]
 })
 export class MaterialModule { }

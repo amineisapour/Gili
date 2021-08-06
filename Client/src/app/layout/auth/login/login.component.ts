@@ -136,27 +136,4 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // showMessage(message: string, type: MessageType) {
-
-  //   let panelClass = '';
-  //   switch (type) {
-  //     case MessageType.Error:
-  //       panelClass = 'alert-error';
-  //       break;
-  //     case MessageType.Success:
-  //       panelClass = 'alert-success';
-  //       break;
-  //     case MessageType.Warning:
-  //       panelClass = 'alert-warning';
-  //       break;
-  //   }
-  //   let action = 'X';
-  //   let config = new MatSnackBarConfig();
-  //   config.horizontalPosition = this.horizontalPosition;
-  //   config.verticalPosition = this.verticalPosition;
-  //   config.duration = 0 * 1000;
-  //   config.panelClass = [panelClass];
-  //   return this.snackBar.open(message, action, config);
-  // }
-
 }

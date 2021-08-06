@@ -4,8 +4,9 @@ export class ValidationService {
             required: 'Required',
             invalidCreditCard: 'Is invalid credit card number',
             invalidEmailAddress: 'Invalid email address',
+            invalidNationalId: 'National ID must be a number and min length and max length must be 10',
             invalidPassword:
-                'Invalid password. Password must be at least 6 characters long, and contain a number.',
+                'Invalid password. Password must be at least 8 characters long, and contain a number.',
             minlength: `Minimum length ${validatorValue.requiredLength}`
         };
 
@@ -38,12 +39,22 @@ export class ValidationService {
         }
     }
 
+    static nationalIdValidator(control: any) {
+        let strongRegex = new RegExp("^\d{10}$");
+        console.log(control.value);
+        if (control.value.match(/^[0-9]{10}$/g)) {
+            return null;
+        } else {
+            return { invalidNationalId: true };
+        }
+    }
+
     static passwordValidator(control: any) {
         // {6,100}           - Assert password is between 6 and 100 characters
         // (?=.*[0-9])       - Assert a string has at least one number
         //if (control.value.match(/^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,100}$/)) {
 
-    
+
         /*
         ^	                The password string will start this way
         (?=.*[a-z])	        The string must contain at least 1 lowercase alphabetical character

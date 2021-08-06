@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { ValidationService } from 'src/app/services/common/validation.service';
 import { AppDateAdapter, AppDateTime, APP_DATE_FORMATS } from 'src/app/infrastructure/helpers/format-datepicker.helper';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS } from '@angular/material/core';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
 import { DateTimeFormat, MessageType } from 'src/app/models/enums/enums';
 
@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
   public hide = true;
+  public hideConfirm = true;
 
   constructor(
     private accountService: AccountService,
@@ -30,6 +31,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
+      confirmPassword: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       nationalId: ['', ValidationService.nationalIdValidator],
@@ -49,7 +51,8 @@ export class RegisterComponent implements OnInit {
       this.registerForm.controls[element].hasError('invalidEmailAddress') ? 'Not a valid ' + element + '!' :
         this.registerForm.controls[element].hasError('invalidPassword') ? 'At least 8 characters long including uppercase, lowercase, numeric, and special character.' :
           this.registerForm.controls[element].hasError('invalidNationalId') ? 'National ID must be a number and min length and max length must be 10!' :
-            '';
+            this.registerForm.controls[element].hasError('pattern') ? 'Passwords do not match' :
+              '';
   }
 
   register(data: any): void {

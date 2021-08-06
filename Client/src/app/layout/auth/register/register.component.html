@@ -13,7 +13,7 @@
         <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)" class="example-form">
             <mat-card-content>
 
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="username" type="text" autocomplete="off" required email>
                     <mat-error *ngIf="!registerForm.controls['username'].valid && registerForm.controls['username'].touched">
@@ -38,7 +38,26 @@
                     </mat-error>
                 </mat-form-field>
                 <br><br>
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput formControlName="confirmPassword" autocomplete="off" 
+                    [type]="hideConfirm ? 'password' : 'text'"
+                    pattern="{{ registerForm.controls['password'].value }}"
+                        required>
+                    <button mat-icon-button matSuffix type="button" (click)="hideConfirm = !hideConfirm"
+                        [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideConfirm">
+                        <mat-icon>{{hideConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+
+                    <mat-error *ngIf="(!registerForm.controls['confirmPassword'].valid || registerForm.controls['confirmPassword'].hasError('pattern')) && registerForm.controls['confirmPassword'].touched">
+                        {{getErrorMessage('confirmPassword')}}
+                    </mat-error>
+                    <!-- <mat-error *ngIf="registerForm.hasError('notSame')">
+                        Passwords do not match
+                    </mat-error>  -->
+                </mat-form-field>
+                <br><br>
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstName" type="text" autocomplete="off" required [maxlength]="50">
                     <mat-error *ngIf="!registerForm.controls['firstName'].valid && registerForm.controls['firstName'].touched">
@@ -46,7 +65,7 @@
                     </mat-error>
                 </mat-form-field>
                 <br><br>
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>Last Name</mat-label>
                     <input matInput formControlName="lastName" type="text" autocomplete="off" required [maxlength]="50">
                     <mat-error *ngIf="!registerForm.controls['lastName'].valid && registerForm.controls['lastName'].touched">
@@ -54,7 +73,7 @@
                     </mat-error>
                 </mat-form-field>
                 <br><br>
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>National ID</mat-label>
                     <input matInput formControlName="nationalId" type="text" autocomplete="off" numeric>
                     <mat-error *ngIf="!registerForm.controls['nationalId'].valid && registerForm.controls['nationalId'].touched">
@@ -62,7 +81,7 @@
                     </mat-error>
                 </mat-form-field>
                 <br><br>
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>BirthDate</mat-label>
                     <!-- <input matInput formControlName="birthdate" type="date" date required> -->
                     <input matInput formControlName="birthdate" [matDatepicker]="picker" (click)="picker.open()">

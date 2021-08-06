@@ -13,7 +13,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" class="example-form">
             <mat-card-content>
 
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>Enter your email</mat-label>
                     <input matInput formControlName="username" type="text" autocomplete="off" required email>
                     <mat-error *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">

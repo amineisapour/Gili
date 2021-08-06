@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
     this.comment = '1234567890';
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

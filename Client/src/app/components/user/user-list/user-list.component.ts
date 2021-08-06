@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MessageType } from 'src/app/models/enums/enums';
+import { DateTimeFormat, MessageType } from 'src/app/models/enums/enums';
 import { HttpRequestResult } from 'src/app/models/http-request-result.model';
 import { User } from 'src/app/models/users/user.model';
 import { AccountService } from 'src/app/services/account.service';
@@ -16,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class UserListComponent implements OnInit {
 
+  dateTimeFormat: typeof DateTimeFormat = DateTimeFormat;
   displayedColumns: string[] = ['id', 'username', 'gender', 'birthdate', 'registerDateTime', 'isActive'];
   dataSource: MatTableDataSource<User>;
 
@@ -98,5 +99,9 @@ export class UserListComponent implements OnInit {
       this.snackbar.openSnackBar(error.message, MessageType.Error);
     }
   }
+
+  // public get DateTimeFormat(): typeof DateTimeFormat {
+  //   return DateTimeFormat; 
+  // }
 
 }

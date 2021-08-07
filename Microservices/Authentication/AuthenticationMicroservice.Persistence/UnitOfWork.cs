@@ -1,4 +1,6 @@
-﻿namespace AuthenticationMicroservice.Persistence
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace AuthenticationMicroservice.Persistence
 {
     public class UnitOfWork :
         GiliX.Persistence.UnitOfWork<DatabaseContext>, IUnitOfWork
@@ -6,6 +8,8 @@
         public UnitOfWork(GiliX.Persistence.Options options) : base(options: options)
         {
         }
+
+        public DatabaseContext Contex => DatabaseContext;
 
         private Users.Repositories.IUserRepository _users;
         public Users.Repositories.IUserRepository Users =>

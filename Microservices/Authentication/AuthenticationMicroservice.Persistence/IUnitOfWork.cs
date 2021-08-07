@@ -2,7 +2,8 @@
 {
 	public interface IUnitOfWork : GiliX.Persistence.IUnitOfWork
 	{
-		public Users.Repositories.IUserRepository Users { get; }
+        public DatabaseContext Contex { get; }
+        public Users.Repositories.IUserRepository Users { get; }
         public Roles.Repositories.IRoleRepository Roles { get; }
         public Permissions.Repositories.IPermissionRepository Permissions { get; }
         public UserInformations.Repositories.IUserInformationRepository UserInformations { get; }

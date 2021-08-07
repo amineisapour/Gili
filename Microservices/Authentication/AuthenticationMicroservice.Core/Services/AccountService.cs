@@ -82,6 +82,11 @@ namespace AuthenticationMicroservice.Core.Services
 
         public string GenerateJwtToken(Domain.Models.User user)
         {
+            if (user == null)
+            {
+                throw new ApplicationException("user is null!");
+            }
+
             var claims = new ClaimsIdentity();
 
             claims.AddClaims(new[]
@@ -89,25 +94,31 @@ namespace AuthenticationMicroservice.Core.Services
                 new Claim("id", user.Id.ToString())
             });
 
-            foreach (var permission in user.UserPermissions)
+            if (user.UserPermissions != null)
             {
-                claims.AddClaims(new[]
+                foreach (var permission in user.UserPermissions)
                 {
-                    new Claim(Core.Config.PermissionsConfig.Permission, permission.Permission.Name)
-                });
+                    claims.AddClaims(new[]
+                    {
+                        new Claim(Core.Config.PermissionsConfig.Permission, permission.Permission.Name)
+                    });
+                }
             }
 
-            foreach (var userRole in user.UserRoles)
+            if (user.UserRoles != null)
             {
-                foreach (var rolePermission in userRole.Role.RolePermissions)
+                foreach (var userRole in user.UserRoles)
                 {
-                    var pName = rolePermission.Permission.Name;
-                    if (user.UserPermissions.All(x => x.Permission.Name != pName))
+                    foreach (var rolePermission in userRole.Role.RolePermissions)
                     {
-                        claims.AddClaims(new[]
+                        var pName = rolePermission.Permission.Name;
+                        if (user.UserPermissions == null || user.UserPermissions.All(x => x.Permission.Name != pName))
                         {
-                            new Claim(Core.Config.PermissionsConfig.Permission, pName)
-                        });
+                            claims.AddClaims(new[]
+                            {
+                                new Claim(Core.Config.PermissionsConfig.Permission, pName)
+                            });
+                        }
                     }
                 }
             }

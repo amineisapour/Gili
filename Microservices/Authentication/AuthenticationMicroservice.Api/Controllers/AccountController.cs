@@ -102,7 +102,7 @@ namespace AuthenticationMicroservice.Api.Controllers
                     result.WithError(ex.InnerException.Message);
                 }
             }
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             return result.ConvertToDtxResult();
         }
 
@@ -261,6 +261,7 @@ namespace AuthenticationMicroservice.Api.Controllers
         public async Task<Result<AuthenticateResponse>> Register([FromBody] RegisterUserViewModel registerUser)
         {
             var result = new FluentResults.Result<AuthenticateResponse>();
+            await using var transaction = await UnitOfWork.Contex.Database.BeginTransactionAsync();
             try
             {
                 if (!ModelState.IsValid)
@@ -287,7 +288,6 @@ namespace AuthenticationMicroservice.Api.Controllers
                     PasswordSalt = passwordDate.PasswordSalt
                 };
                 await UnitOfWork.Users.InsertAsync(newUser);
-
                 var newUserInfo = new UserInformation
                 {
                     Birthdate = registerUser.Birthdate,
@@ -300,11 +300,29 @@ namespace AuthenticationMicroservice.Api.Controllers
                 await UnitOfWork.UserInformations.InsertAsync(newUserInfo);
                 await UnitOfWork.SaveAsync();
 
+                var roleList = await UnitOfWork.Roles.GetAllAsync();
+                var role = roleList.FirstOrDefault(p => p.Name == "User");
+                if (role != null)
+                {
+                    var userRole = new UserRole
+                    {
+                        Role = role,
+                        User = newUser
+                    };
+
+                    await UnitOfWork.UserRoles.InsertAsync(userRole);
+                    await UnitOfWork.SaveAsync();
+
+                    newUser.UserRoles = new List<UserRole> { userRole };
+                }
+
+
                 var jwtToken = _accountService.GenerateJwtToken(newUser);
                 var refreshToken = _accountService.GenerateRefreshToken(IpAddress());
 
                 await UnitOfWork.RefreshTokens.InsertAsync(refreshToken);
-                newUser.RefreshTokens.Add(refreshToken);
+                //newUser.RefreshTokens.Add(refreshToken);
+                newUser.RefreshTokens = new List<RefreshToken> { refreshToken };
 
                 // remove old refresh tokens from user
                 //RemoveOldRefreshTokens(newUser);
@@ -318,9 +336,13 @@ namespace AuthenticationMicroservice.Api.Controllers
                 result.WithValue(value: authenticateResponse);
 
                 //SetTokenCookie(refreshToken.Token);
+
+                await transaction.CommitAsync();
+
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
                 result.WithError(errorMessage: ex.Message);
                 if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                 {
@@ -366,7 +388,7 @@ namespace AuthenticationMicroservice.Api.Controllers
             {
                 result.WithError(errorMessage: ex.Message);
             }
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
             return result.ConvertToDtxResult();
         }
 

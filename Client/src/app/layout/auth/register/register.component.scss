@@ -1,37 +1,37 @@
 .register-wrapper {
   //margin-top: 10%;
   //height: 100%;
-  min-height: 100%;
-  align-items: center;
-  display: flex;
+  min-height     : 100%;
+  align-items    : center;
+  display        : flex;
   justify-content: center;
 }
 
 .positronx {
   text-decoration: none;
-  color: #ffffff;
+  color          : #ffffff;
 }
 
 .box {
-  position: relative;
-  top: 0;
-  opacity: 1;
-  float: left;
-  padding: 60px 50px 40px 50px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  transform: scale(1);
+  position         : relative;
+  top              : 0;
+  opacity          : 1;
+  float            : left;
+  padding          : 60px 50px 40px 50px;
+  width            : 100%;
+  background       : #fff;
+  border-radius    : 10px;
+  transform        : scale(1);
   -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  z-index: 5;
-  max-width: 330px;
+  -ms-transform    : scale(1);
+  z-index          : 5;
+  max-width        : 330px;
 }
 
 .register-wrapper .example-form {
   min-width: 100%;
   max-width: 300px;
-  width: 100%;
+  width    : 100%;
 }
 
 .register-wrapper .example-full-width,
@@ -40,21 +40,21 @@
 }
 
 .btn-block {
-  width: 100%;
+  width           : 100%;
   background-color: rgb(46, 164, 79);
-  color: #fff;
+  color           : #fff;
 }
 
 .register-wrapper mat-card-header {
-  text-align: center;
-  width: 100%;
-  display: block;
+  text-align : center;
+  width      : 100%;
+  display    : block;
   font-weight: 700;
 }
 
 .register-wrapper mat-card-header mat-card-title {
   font-size: 40px;
-  margin: 0;
+  margin   : 0;
 }
 
 .register-wrapper .mat-card {

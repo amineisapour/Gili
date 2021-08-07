@@ -46,7 +46,8 @@
         <!-- Register Time Column -->
         <ng-container matColumnDef="registerDateTime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Register Time </th>
-            <td mat-cell *matCellDef="let row"> {{ row.registerDateTime | getFormatDateTime: dateTimeFormat.YyyyMmDdHhMmSs }} </td>
+            <!-- <td mat-cell *matCellDef="let row"> {{ row.registerDateTime | getFormatDateTime: dateTimeFormat.YyyyMmDdHhMmSs }} </td> -->
+            <td mat-cell *matCellDef="let row"> {{ row.registerDateTime | date:'YYYY-MM-dd HH:mm:ss' }} </td>
         </ng-container>
 
         <!-- Active Column -->

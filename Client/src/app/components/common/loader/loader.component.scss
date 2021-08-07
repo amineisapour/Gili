@@ -24,3 +24,12 @@
   top : 47%;
   left: 47%;
 }
+
+.loader-container-partial {
+  position  : fixed;
+  width     : 100%;
+  height    : 100%;
+  background: #000;
+  opacity   : 0.5;
+  z-index   : 99999999;
+}

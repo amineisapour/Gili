@@ -11,7 +11,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { LocalStorageService } from 'src/app/services/common/local-storage.service';
 import { ValidationService } from 'src/app/services/common/validation.service';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
-import { MessageType } from 'src/app/models/enums/enums';
+import { LoaderColor, LoaderType, MessageType } from 'src/app/models/enums/enums';
 import { ErrorHandleHelper } from 'src/app/infrastructure/helpers/error-handle.helper';
 
 @Component({
@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public returnUrl: string = '/';
   public hide = true;
+  loaderType = LoaderType;
+  loaderColor = LoaderColor;
   //myInfo$ = this.localStorageService.myData$;
 
   constructor(

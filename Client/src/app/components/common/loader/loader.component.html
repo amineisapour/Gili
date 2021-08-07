@@ -1,6 +1,6 @@
 <!-- <div *ngIf="loading" class="progress-loader-container">
   <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
 </div> -->
-<div *ngIf="loading" class="loader-container">
-    <mat-spinner color="primary" class="loader-spinner"></mat-spinner>
+<div *ngIf="loading" class="{{ className }}">
+  <mat-spinner color="{{ colorName }}" class="loader-spinner"></mat-spinner>
 </div>

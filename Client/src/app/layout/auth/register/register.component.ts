@@ -6,7 +6,7 @@ import { ValidationService } from 'src/app/services/common/validation.service';
 import { AppDateAdapter, AppDateTime, APP_DATE_FORMATS } from 'src/app/infrastructure/helpers/format-datepicker.helper';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
-import { DateTimeFormat, Gender, MessageType } from 'src/app/models/enums/enums';
+import { DateTimeFormat, Gender, LoaderColor, LoaderType, MessageType } from 'src/app/models/enums/enums';
 import { HttpRequestResult } from 'src/app/models/http-request-result.model';
 import { AuthenticateData } from 'src/app/models/authenticate-data.model';
 import { LocalStorageService } from 'src/app/services/common/local-storage.service';
@@ -32,6 +32,8 @@ export class RegisterComponent implements OnInit {
   public hideConfirm = true;
   //userGender: typeof Gender = Gender;
   userGender = Gender;
+  loaderType = LoaderType;
+  loaderColor = LoaderColor;
 
   constructor(
     private accountService: AccountService,

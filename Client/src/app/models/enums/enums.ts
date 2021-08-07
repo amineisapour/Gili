@@ -20,3 +20,14 @@ export enum DateTimeSplitter {
     Slash = '/',
     Dash = '-'
 }
+
+export enum LoaderType {
+    FullPage = 'full',
+    PartialPage = 'partial'
+}
+
+export enum LoaderColor {
+    Primary = 'primary',
+    Accent = 'accent',
+    Warn = 'warn'
+}

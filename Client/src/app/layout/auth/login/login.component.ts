@@ -75,7 +75,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(data: any): void {
-    this.accountService.login(data).subscribe(
+    const model = {
+      "username": data.username,
+      "password": data.password
+    };
+    this.accountService.login(model).subscribe(
       (result: HttpRequestResult<AuthenticateData>) => {
         //console.log(result);
         if (result.isFailed) {

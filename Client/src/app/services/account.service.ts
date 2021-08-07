@@ -27,10 +27,21 @@ export class AccountService {
         this.baseAuthenticationUrl = this.settingsService.baseAuthenticationUrl;
     }
 
-    public login(model: any): Observable<HttpRequestResult<AuthenticateData>> {
+    public login(requestData: any): Observable<HttpRequestResult<AuthenticateData>> {
         const requestUrl: string = this.baseAuthenticationUrl + 'auth/login';
-        const requestData = { "username": model.username, "password": model.password };
+        return this.http.post<HttpRequestResult<AuthenticateData>>(requestUrl, requestData, this.httpOptions)
+            .pipe(
+                map(result => {
+                    return result;
+                }),
+                catchError(e => {
+                    return throwError(e)
+                })
+            );
+    }
 
+    public register(requestData: any): Observable<HttpRequestResult<AuthenticateData>> {
+        const requestUrl: string = this.baseAuthenticationUrl + 'auth/register';
         return this.http.post<HttpRequestResult<AuthenticateData>>(requestUrl, requestData, this.httpOptions)
             .pipe(
                 map(result => {

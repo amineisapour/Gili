@@ -4,9 +4,16 @@ import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { ValidationService } from 'src/app/services/common/validation.service';
 import { AppDateAdapter, AppDateTime, APP_DATE_FORMATS } from 'src/app/infrastructure/helpers/format-datepicker.helper';
-import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
 import { DateTimeFormat, Gender, MessageType } from 'src/app/models/enums/enums';
+import { HttpRequestResult } from 'src/app/models/http-request-result.model';
+import { AuthenticateData } from 'src/app/models/authenticate-data.model';
+import { LocalStorageService } from 'src/app/services/common/local-storage.service';
+import { CurrentUser } from 'src/app/models/current-user.model';
+import { LocalStorageData } from 'src/app/models/local-storage-data.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandleHelper } from 'src/app/infrastructure/helpers/error-handle.helper';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +27,7 @@ import { DateTimeFormat, Gender, MessageType } from 'src/app/models/enums/enums'
 export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
+  public returnUrl: string = '/';
   public hide = true;
   public hideConfirm = true;
   //userGender: typeof Gender = Gender;
@@ -28,7 +36,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private localStorageService: LocalStorageService,
+    public snackbar: SnackbarComponent
   ) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, ValidationService.emailValidator]],
@@ -59,8 +69,41 @@ export class RegisterComponent implements OnInit {
   }
 
   register(data: any): void {
-    console.table(data);
-    console.log(AppDateTime.getFormatDateTime(data.birthdate, DateTimeFormat.YyyyMmDd));
+    const model = {
+      "Username": data.username,
+      "Password": data.password,
+      "FirstName": data.firstName,
+      "LastName": data.lastName,
+      "NationalId": data.nationalId,
+      "Gender": (data.gender == Gender.Man) ? 1 : 0,
+      "Birthdate": AppDateTime.getFormatDateTime(data.birthdate, DateTimeFormat.YyyyMmDd)
+    };
+    this.accountService.register(model).subscribe(
+      (result: HttpRequestResult<AuthenticateData>) => {
+        if (result.isFailed) {
+          this.snackbar.openSnackBar(result.errors, MessageType.Error);
+        } else {
+          if (result.value != null) {
+            let user = new CurrentUser(
+              result.value.id,
+              result.value.username,
+              result.value.gender,
+              result.value.fullName
+            );
+            this.localStorageService.setInfo(new LocalStorageData<CurrentUser>("current-user", user));
+            this.localStorageService.setInfo(new LocalStorageData<string>("token", result.value.token));
+            this.localStorageService.setInfo(new LocalStorageData<string>("refresh-token", result.value.refreshToken));
+
+            window.location.href = this.returnUrl;
+          } else {
+            this.snackbar.openSnackBar('problem!', MessageType.Error);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        return ErrorHandleHelper.handleError(error, this.snackbar);
+      }
+    );
   }
 
   login(): void {

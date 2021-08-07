@@ -73,3 +73,17 @@ mat-form-field .ng-valid.required {
 mat-form-field .ng-invalid:not(form) {
   color: #a94442;
 }
+
+.loader-container {
+  position  : fixed;
+  width     : 100%;
+  height    : 100%;
+  background: #000;
+  opacity   : 0.5;
+  z-index   : 99999999;
+}
+
+.loader-spinner {
+  top : 47%;
+  left: 47%;
+}

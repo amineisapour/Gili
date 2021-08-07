@@ -58,6 +58,21 @@
                 </mat-form-field>
                 <br><br>
                 <mat-form-field appearance="standard" class="example-full-width">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" required>
+                      <mat-option>Select an option</mat-option>
+                      <mat-option *ngFor="let gen of userGender | keyvalue" [value]="gen.value">{{ gen.key }}</mat-option>
+                    </mat-select>
+
+                    <!-- <mat-error *ngIf="registerForm.controls['gender'].hasError('required')">
+                        Please choose a gender
+                    </mat-error> -->
+                    <mat-error *ngIf="!registerForm.controls['gender'].valid && registerForm.controls['gender'].touched">
+                        {{getErrorMessage('gender')}}
+                    </mat-error>
+                  </mat-form-field>
+                <br><br>
+                <mat-form-field appearance="standard" class="example-full-width">
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstName" type="text" autocomplete="off" required [maxlength]="50">
                     <mat-error *ngIf="!registerForm.controls['firstName'].valid && registerForm.controls['firstName'].touched">

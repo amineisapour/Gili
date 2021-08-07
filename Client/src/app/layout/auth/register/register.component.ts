@@ -6,7 +6,7 @@ import { ValidationService } from 'src/app/services/common/validation.service';
 import { AppDateAdapter, AppDateTime, APP_DATE_FORMATS } from 'src/app/infrastructure/helpers/format-datepicker.helper';
 import { DateAdapter, ErrorStateMatcher, MAT_DATE_FORMATS } from '@angular/material/core';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
-import { DateTimeFormat, MessageType } from 'src/app/models/enums/enums';
+import { DateTimeFormat, Gender, MessageType } from 'src/app/models/enums/enums';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public hide = true;
   public hideConfirm = true;
+  //userGender: typeof Gender = Gender;
+  userGender = Gender;
 
   constructor(
     private accountService: AccountService,
@@ -32,6 +34,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required, ValidationService.emailValidator]],
       password: ['', [Validators.required, ValidationService.passwordValidator]],
       confirmPassword: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
       nationalId: ['', ValidationService.nationalIdValidator],

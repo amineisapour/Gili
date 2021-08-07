@@ -8,6 +8,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { SnackbarComponent } from '../../common/snackbar/snackbar.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ErrorHandleHelper } from 'src/app/infrastructure/helpers/error-handle.helper';
 
 @Component({
   selector: 'app-user-list',
@@ -57,7 +58,7 @@ export class UserListComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        return this.handleError(error)
+        return ErrorHandleHelper.handleError(error, this.snackbar);
       }
     );
   }
@@ -68,35 +69,6 @@ export class UserListComponent implements OnInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
-    }
-  }
-
-  handleError(error: HttpErrorResponse): void {
-    try {
-      let httpRequestResult = error.error as HttpRequestResult<any>;
-      if (httpRequestResult != undefined && httpRequestResult != null) {
-        if (httpRequestResult.isFailed) {
-          httpRequestResult.errors.forEach(function (item, index) {
-            console.error(item);
-          });
-          this.snackbar.openSnackBar(httpRequestResult.errors, MessageType.Error);
-        } else if (httpRequestResult.isSuccess) {
-          httpRequestResult.successes.forEach(function (item, index) {
-            console.error(item);
-          });
-          this.snackbar.openSnackBar(httpRequestResult.successes, MessageType.Error);
-        } else {
-          console.error(error.message);
-          this.snackbar.openSnackBar(error.message, MessageType.Error);
-        }
-      } else {
-        console.error(error.message);
-        this.snackbar.openSnackBar(error.message, MessageType.Error);
-      }
-    }
-    catch (error) {
-      console.error(error);
-      this.snackbar.openSnackBar(error.message, MessageType.Error);
     }
   }
 

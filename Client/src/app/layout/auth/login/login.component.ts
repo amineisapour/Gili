@@ -12,6 +12,7 @@ import { LocalStorageService } from 'src/app/services/common/local-storage.servi
 import { ValidationService } from 'src/app/services/common/validation.service';
 import { SnackbarComponent } from 'src/app/components/common/snackbar/snackbar.component';
 import { MessageType } from 'src/app/models/enums/enums';
+import { ErrorHandleHelper } from 'src/app/infrastructure/helpers/error-handle.helper';
 
 @Component({
   selector: 'app-login',
@@ -102,38 +103,9 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        return this.handleError(error)
+        return ErrorHandleHelper.handleError(error, this.snackbar);
       }
     );
-  }
-
-  handleError(error: HttpErrorResponse): void {
-    try {
-      let httpRequestResult = error.error as HttpRequestResult<any>;
-      if (httpRequestResult != undefined && httpRequestResult != null) {
-        if (httpRequestResult.isFailed) {
-          httpRequestResult.errors.forEach(function (item, index) {
-            console.error(item);
-          });
-          this.snackbar.openSnackBar(httpRequestResult.errors, MessageType.Error);
-        } else if (httpRequestResult.isSuccess) {
-          httpRequestResult.successes.forEach(function (item, index) {
-            console.error(item);
-          });
-          this.snackbar.openSnackBar(httpRequestResult.successes, MessageType.Error);
-        } else {
-          console.error(error.message);
-          this.snackbar.openSnackBar(error.message, MessageType.Error);
-        }
-      } else {
-        console.error(error.message);
-        this.snackbar.openSnackBar(error.message, MessageType.Error);
-      }
-    }
-    catch (error) {
-      console.error(error);
-      this.snackbar.openSnackBar(error.message, MessageType.Error);
-    }
   }
 
   register(): void {

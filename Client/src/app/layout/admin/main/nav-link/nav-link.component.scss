@@ -1,19 +1,42 @@
-.page-header .page-header-title + .breadcrumb {
-    > .breadcrumb-item {
-      a {
-        color: #fff;
-      }
+.page-header {
+  color: #fff;
 
-      &:last-child a {
-        color: #fff;
-      }
+  .mat-icon {
+    font-size: 18px !important;
+    display: inline !important;
+    float: left !important;
+    padding-right: 10px !important;
+  }
+
+  &-title {
+    h3 {
+      color: #fff;
     }
   }
 
-  .page-header {
-    .page-header-title {
-      h5 {
+  &-body {
+    ul {
+      color: #fff;
+      padding: 0 !important;
+      margin: 0 !important;
+
+      li {
+        display: inline;
         color: #fff;
+        padding: 0 !important;
+        margin: 0 !important;
+
+        span {
+          padding: 0 5px;
+        }
       }
     }
+
+    a {
+      color: #fff;
+      //padding: 0 10px;
+      display: inline-block;
+      //text-decoration: none;
+    }
   }
+}

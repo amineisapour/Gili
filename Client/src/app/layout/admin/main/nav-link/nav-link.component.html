@@ -23,3 +23,11 @@
         </div>
     </ng-container>
 </ng-container> -->
+<p>
+    {{ mainTitle }}
+</p>
+<ul>
+    <li *ngFor="let nav of navList | keyvalue">
+        {{nav.key}} --> {{nav.value.title}}
+    </li>
+</ul>

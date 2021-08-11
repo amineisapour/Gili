@@ -18,27 +18,40 @@ export class NavLinkComponent implements OnInit {
 
   private find: boolean = false;
   private myMap = new Map<number, Interfaces.MenuItem>();
+  public navList = new Map<number, Interfaces.MenuItem>();
+  public mainTitle: string = '';
 
   constructor(private route: Router, public nav: NavigationHelper, public location: Location) {
     let routerUrl: string;
     this.route.events.subscribe((event: any) => {
-      routerUrl = event.urlAfterRedirects;
-      if (routerUrl && typeof routerUrl === 'string') {
-        let activeLink = event.url.substring(1);
-        if (event instanceof NavigationEnd) {
-          console.log(activeLink);
-          this.nav.get().forEach((item: Interfaces.MenuItem) => {
-            if (!this.find) {
-              this.navigateToNode(item, activeLink);
-            }
+      if (event instanceof NavigationEnd) {
+        routerUrl = event.urlAfterRedirects;
+        //let activeLink = event.url.substring(1);
+        let activeLink = routerUrl.substring(1);
+        //console.log(activeLink);
+        //
+        this.find = false;
+        this.myMap = new Map<number, Interfaces.MenuItem>();
+        this.navList = new Map<number, Interfaces.MenuItem>();
+        this.mainTitle = '';
+        //
+        //
+        this.nav.get().forEach((item: Interfaces.MenuItem) => {
+          if (!this.find) {
+            this.navigateToNode(item, activeLink);
           }
-          );
-          if (this.find) {
-            //let mapAsc = new Map([...this.myMap.entries()].sort());
-            //let mapAsc = new Map([...this.myMap].sort());
-            let mapAsc = this.sortedMap(this.myMap);
-            console.log(mapAsc);
-          }
+        }
+        );
+        if (this.find) {
+          //let mapAsc = new Map([...this.myMap.entries()].sort());
+          // this.navList = this
+          //   .sortedMap(this.myMap)
+          //   .forEach((value: Interfaces.MenuItem, key: number) => {
+          //     console.log(key);
+          //     console.log(value);
+          //   });
+          this.navList = this.sortedMap(this.myMap);
+          this.mainTitle = Array.from(this.navList)[this.navList.size - 1][1].title;
         }
       }
     });

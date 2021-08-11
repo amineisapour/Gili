@@ -19,14 +19,16 @@ import { RegisterComponent } from './layout/auth/register/register.component';
 import { SnackbarComponent } from './components/common/snackbar/snackbar.component';
 import { DialogBoxComponent } from './components/common/dialog-box/dialog-box.component';
 import { LoaderComponent } from './components/common/loader/loader.component';
+import { NavLinkComponent } from './layout/admin/main/nav-link/nav-link.component';
 
-//? Services and Providers
+//? Services and Providers & Helpers
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorService } from './services/common/error.service';
 import { DialogBoxService } from './services/common/dialog-box.service';
 //import { JwtInterceptor } from './interceptors/jwt.interceptor';
 //import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { HttpRequestInterceptor } from './interceptors/http-request.interceptor';
+import { NavigationHelper } from './infrastructure/helpers/navigation.helper';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { HttpRequestInterceptor } from './interceptors/http-request.interceptor'
     RegisterComponent,
     SnackbarComponent,
     DialogBoxComponent,
-    LoaderComponent
+    LoaderComponent,
+    NavLinkComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { HttpRequestInterceptor } from './interceptors/http-request.interceptor'
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     //{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     SnackbarComponent,
-    DialogBoxService
+    DialogBoxService,
+    NavigationHelper
   ],
   bootstrap: [
     AppComponent

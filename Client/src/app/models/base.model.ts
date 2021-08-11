@@ -1,4 +1,4 @@
-export type Nullable<T> = T | undefined | null;
+export type Nullable<T> = T | null;
 
 export class Base {
 

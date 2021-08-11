@@ -1,0 +1,19 @@
+.page-header .page-header-title + .breadcrumb {
+    > .breadcrumb-item {
+      a {
+        color: #fff;
+      }
+
+      &:last-child a {
+        color: #fff;
+      }
+    }
+  }
+
+  .page-header {
+    .page-header-title {
+      h5 {
+        color: #fff;
+      }
+    }
+  }

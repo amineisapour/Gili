@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GiliX.Common\GiliX.Common.csproj" />
     <ProjectReference Include="..\..\..\GiliX\GiliX.csproj" />
     <ProjectReference Include="..\AuthenticationMicroservice.Core\AuthenticationMicroservice.Core.csproj" />
     <ProjectReference Include="..\AuthenticationMicroservice.Domain\AuthenticationMicroservice.Domain.csproj" />

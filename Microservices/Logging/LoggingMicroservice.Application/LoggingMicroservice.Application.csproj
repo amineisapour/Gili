@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GiliX.Logging\GiliX.Logging.csproj" />
     <ProjectReference Include="..\..\..\GiliX.Mediator\GiliX.Mediator.csproj" />
     <ProjectReference Include="..\..\..\GiliX\GiliX.csproj" />
     <ProjectReference Include="..\LoggingMicroservice.Domain\LoggingMicroservice.Domain.csproj" />

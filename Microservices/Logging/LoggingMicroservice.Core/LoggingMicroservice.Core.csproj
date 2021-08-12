@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GiliX.Logging\GiliX.Logging.csproj" />
     <ProjectReference Include="..\..\..\GiliX\GiliX.csproj" />
     <ProjectReference Include="..\LoggingMicroservice.Application\LoggingMicroservice.Application.csproj" />
   </ItemGroup>

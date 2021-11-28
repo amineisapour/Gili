@@ -7,6 +7,7 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrol
 import { NumberToWordPipe } from '../pipes/number-to-word.pipe';
 import { GetFullnameWithGenderPipe } from '../pipes/get-fullname-with-gender.pipe';
 import { GetFormatDateTimePipe } from '../pipes/get-format-date-time.pipe';
+import { ReplaceLineBreaksPipe } from '../pipes/replace-line-breaks.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -16,7 +17,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     NumberToWordPipe,
     GetFullnameWithGenderPipe,
-    GetFormatDateTimePipe
+    GetFormatDateTimePipe,
+    ReplaceLineBreaksPipe
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NumberToWordPipe,
     GetFullnameWithGenderPipe,
     GetFormatDateTimePipe,
+    ReplaceLineBreaksPipe,
     MaterialModule,
     PerfectScrollbarModule,
     HttpClientModule
